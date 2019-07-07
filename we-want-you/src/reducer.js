@@ -1,3 +1,10 @@
 import { combineReducers } from 'redux';
-
-export default combineReducers({});
+const todoReducer =(state=0,action)=>
+{
+    return state;
+};
+const hhReducer = (state=2,action) =>
+{
+    return state;
+}
+export default combineReducers({todoReducer,hhReducer});
