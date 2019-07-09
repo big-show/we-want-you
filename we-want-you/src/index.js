@@ -12,6 +12,7 @@ import Register from './component/register/register';
 import './index.css'
 import Bossinfo from './container/bossinfo/bossinfo';
 import Geniusinfo from './container/geniusinfo/geniusinfo';
+import DashBoard from './component/dashboard/dashborad';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(reducer, enhancer);
@@ -26,6 +27,7 @@ ReactDom.render(
                     <Route path='/bossinfo' component={Bossinfo}/>
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
+                        <DashBoard></DashBoard>
                     </Switch>
                 </div>
             </BrowserRouter>

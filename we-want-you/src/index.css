@@ -5,3 +5,19 @@
     font-size:16px;
     font-weight:bold;
 }
+.fixed-header.am-navbar
+{
+    position: fixed;
+    width:100%;
+    top:0;
+}
+.am-tab-bar
+{
+    position: fixed;
+    width:100%;
+    bottom:0;
+}
+.page-content
+{
+    padding:45px 5px;
+}
