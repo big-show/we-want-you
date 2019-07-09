@@ -36,6 +36,20 @@ Router.post('/register',function (req,res) {
   })
 
 });
+//处理bossinfo更新信息
+Router.post('/update',function (req,res) {
+    console.log(req.body);
+    const userid=req.cookies.userid;
+    if(!userid)
+        return res.json({code:1});
+    User.findByIdAndUpdate(userid,req.body,(err,doc)=>{
+      const data = Object.assign({},{
+          user:doc.user,
+          type:doc.type,
+      },req.body);
+      return res.json({code:0,data});
+    });
+});
 Router.get('/info',(req,res)=>{
    const {userid} = req.cookies;
    console.log(userid);
