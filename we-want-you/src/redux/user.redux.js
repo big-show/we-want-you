@@ -1,11 +1,10 @@
 import axios from 'axios';
 import {getRedirectPath} from "../util";
 //action
-const REGISTER_SUCCESS = 'user/register_success';
 const ERR_MSG = 'user/err_meg';
-const LOGIN_SUCCESS = 'user/login_success';
 const LOAD_DATA = 'user/load_data';
 const AUTH_SUCCESS = 'user/auth_success';
+const LOG_OUT ='user/log_out';
 //reducer
 const defaultState={
   redirecTo:'',
@@ -25,6 +24,8 @@ export default function userReducer(state=defaultState , action)
             return {...state,isAuth:false,errMsg:action.msg};
         case LOAD_DATA:
             return {...state,...action.data};
+        case LOG_OUT:
+            return {...defaultState,redirecTo:'/login'};
         default:
             return state;
     }
@@ -64,6 +65,11 @@ export function update(data) {
                     dispatch(errMsg(res.data.msg));
             })
     }
+}
+//退出登录是更新redux
+export function logoutSubmit()
+{
+    return {type:LOG_OUT}
 }
 export function login({user,pwd}){
     if(!user||!pwd)

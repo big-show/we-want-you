@@ -2,21 +2,24 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Route ,Switch} from "react-router-dom";
 import {NavBar} from  'antd-mobile';
-import NavLinkBar from '../navlink/nablink';
-import Boss from '../../container/boss/boss';
-function Genius() {
-    return <h2>Genius</h2>
-}
-function Msg() {
-    return <h2>Msg</h2>
-}
-function User() {
-    return <h2>Me</h2>
-}
+import NavLinkBar from '../../component/navlink/nablink';
+import Boss from '../../component/boss/boss';
+import Genius from '../../component/genius/genius';
+import User from '../../component/user/user';
+import Msg from '../../component/msg/msg';
+import {getMsgList,sendMsg,recvMsg} from '../../redux/chat.redux';
 @connect(
-    state=>state
+    state=>state,
+    {getMsgList,recvMsg}
 )
 class Dashboard extends Component{
+    componentDidMount()
+    {
+        if(!this.props.chat.chatmsg.length) {
+            this.props.recvMsg();
+            this.props.getMsgList();
+        }
+    }
     render()
     {
         const navList = [

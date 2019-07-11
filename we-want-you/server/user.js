@@ -3,6 +3,7 @@ const express = require('express');
 const Router = express.Router();
 const model = require('./model');
 const User = model.getModel('user');
+const Chat = model.getModel('chat');
 const _filter={pwd:0,__v:0};
 Router.get('/list',(req,res)=>{
    //User.remove({},(e,d)=>{});
@@ -11,9 +12,25 @@ Router.get('/list',(req,res)=>{
       res.json({code:0,data:doc});
    })
 });
+//初始化chat信息列表
+Router.get('/getmsglist',function(req,res){
+    const user = req.cookies.userid ;
+    //查询用户姓名和头像
+    let users={};
+    User.find({},function (e,userdoc) {
+       userdoc.forEach((v)=>{
+           users[v.id]={name:v.user,avatar:v.avatar}
+       })
+    });
+    Chat.find({"$or":[{from:user},{to:user}]},function (err,doc) {
+        if(err)
+            return res.josn({code:1,msg:'后端出错'});
+        return res.json({code:0,msgs:doc,users:users})
+    })
+});
 Router.post('/login',function (req,res) {
     const{user,pwd} = req.body;
-    console.log(user,pwd);
+    //console.log(user,pwd);
     User.findOne({user,pwd:md5Pwd(pwd)},_filter,(err,doc)=>
     {
         if(!doc) {
@@ -39,7 +56,7 @@ Router.post('/register',function (req,res) {
 });
 //处理bossinfo更新信息
 Router.post('/update',function (req,res) {
-    console.log(req.body);
+    //console.log(req.body);
     const userid=req.cookies.userid;
     if(!userid)
         return res.json({code:1});
@@ -53,7 +70,7 @@ Router.post('/update',function (req,res) {
 });
 Router.get('/info',(req,res)=>{
    const {userid} = req.cookies;
-   console.log(userid);
+   //console.log(userid);
    if(!userid)
        return res.json({code:1});
    User.findOne({_id:userid},_filter,function(err,doc){

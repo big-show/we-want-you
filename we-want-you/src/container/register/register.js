@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import Logo from '../logo/logo';
+import Logo from '../../component/logo/logo';
 import {List,InputItem,Radio,WingBlank,WhiteSpace,Button} from 'antd-mobile';
 import {register} from "../../redux/user.redux";
 import { Redirect } from 'react-router-dom';

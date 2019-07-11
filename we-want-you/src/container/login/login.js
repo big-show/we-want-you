@@ -1,7 +1,7 @@
 import React ,{ Component } from 'react';
 import { login } from '../../redux/user.redux';
 import { connect } from 'react-redux';
-import Logo from '../logo/logo';
+import Logo from '../../component/logo/logo';
 import { Redirect } from 'react-router-dom';
 import {List,InputItem,WingBlank,WhiteSpace,Button} from 'antd-mobile';
 @connect(
@@ -22,7 +22,6 @@ class Login extends Component{
     }
     register()
     {
-        console.log(this.props);
         this.props.history.push('/register')
     }
     handleInputChange(type,val)
@@ -39,7 +38,7 @@ class Login extends Component{
     {
         return(
             <div>
-                {this.props.redirecTo?<Redirect to={this.props.redirecTo}/>:null}
+                {this.props.redirecTo&&this.props.redirecTo!='/login'?<Redirect to={this.props.redirecTo}/>:null}
                 <Logo></Logo>
                 {this.props.errMsg?<p className='err_msg'>{this.props.errMsg}</p>:null}
                 <WingBlank>
