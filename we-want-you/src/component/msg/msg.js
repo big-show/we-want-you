@@ -25,7 +25,7 @@ class Msg extends Component{
             const bLast = this.getListItem(b).create_time;
             return bLast-aLast;
         });
-        console.log(chatGroupValue);
+        //console.log(chatGroupValue);
         const userid=this.props.user._id;
         return (
             <div>
@@ -38,7 +38,7 @@ class Msg extends Component{
                     const name=userinfo[targetId].name;
                     const avatar = userinfo[targetId].avatar;
                     const msg=this.getListItem(v);
-                    console.log(msg.content);
+                    //console.log(msg.content);
                     return(
                         <List key={msg._id}>
                             <Item key={v._id}

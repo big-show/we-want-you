@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
 import {List,InputItem,NavBar,Icon,Grid} from 'antd-mobile';
 import { connect } from 'react-redux'
-import {getMsgList,sendMsg,recvMsg} from '../../redux/chat.redux';
+import {getMsgList,sendMsg,recvMsg,upDateUnread} from '../../redux/chat.redux';
 import {getChatId} from '../../util';
 @connect(
     state=>state,
-    {getMsgList,sendMsg,recvMsg}
+    {getMsgList,sendMsg,recvMsg,upDateUnread}
 )
 class Chat extends Component{
     constructor(props)
@@ -23,7 +23,15 @@ class Chat extends Component{
             this.props.recvMsg();
             this.props.getMsgList();
         }
-        //this.fixCarousel()
+        this.fixCarousel();
+
+    }
+    componentWillUnmount()
+    {
+        console.log("Chat component : willunMount");
+        const to =this.props.match.params._id;
+        console.log("From who:",to);
+        this.props.upDateUnread(to);
     }
     fixCarousel()
     {
@@ -59,7 +67,10 @@ class Chat extends Component{
                 <NavBar
                     type='dark'
                     icon={<Icon type="left" />}
-                    onLeftClick={() => {this.props.history.goBack()}}
+                    onLeftClick={() => {
+                        this.props.history.goBack();
+                        //this.props.upDateUnread();
+                        }}
                 >
                     {userName}
                 </NavBar>

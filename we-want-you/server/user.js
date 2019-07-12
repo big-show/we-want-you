@@ -28,6 +28,23 @@ Router.get('/getmsglist',function(req,res){
         return res.json({code:0,msgs:doc,users:users})
     })
 });
+//更新未读消息列表
+Router.post('/updateUnread',function(req,res){
+   //const cookieUserid = req.cookies.userid;
+   const userid = req.body.userid;
+   const from = req.body.from;
+   console.log("cookies",req.cookies);
+   console.log("From who",from);
+   //console.log(req.body);
+   Chat.update({from,to:userid},{$set: {read:"true"}}, {multi: true},(err,doc)=>{
+       console.log(doc.nModified);
+      if(!err)
+          return res.json({code:0,num:doc.nModified});
+      else
+        return res.json({code:1,msg:"更新错误"});
+
+   });
+});
 Router.post('/login',function (req,res) {
     const{user,pwd} = req.body;
     //console.log(user,pwd);
