@@ -66,7 +66,7 @@ export function upDateUnread(from)
 {
     return (dispatch,getState)=>{
         const userid=getState().user._id;
-        console.log("页面用户:",userid);
+        //console.log("页面用户:",userid);
         axios.post('/user/updateUnread',{userid,from})
             .then(res=>{
                 if(res.status===200&&res.data.code===0)

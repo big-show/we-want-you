@@ -59,7 +59,7 @@ class Dashboard extends Component{
 
         ];
         const pageToShow = navList.find((v)=>(v.path===pageLocation.pathname));
-        console.log(pageToShow);
+        //console.log(pageToShow);
         return(
             <div>
                 <NavBar className='fixed-header' mode='dark'>{navList.find(v=>v.path===this.props.location.pathname).title}</NavBar>

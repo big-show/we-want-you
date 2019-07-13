@@ -24,13 +24,13 @@ class Chat extends Component{
             this.props.recvMsg();
             this.props.getMsgList();
         }
-        console.log("component Did Mount");
+        //console.log("component Did Mount");
         this.fixCarousel();
 
     }
     componentWillUnmount()
     {
-        console.log("Chat component : willunMount");
+       // console.log("Chat component : willunMount");
         const to =this.props.match.params._id;
         console.log("From who:",to);
         this.props.upDateUnread(to);
