@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 const userRouter = require('./user');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
