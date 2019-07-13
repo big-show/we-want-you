@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {Route } from "react-router-dom";
+import {Route ,Redirect} from "react-router-dom";
 import QueueAnim from 'rc-queue-anim';
 import {NavBar} from  'antd-mobile';
 import NavLinkBar from '../../component/navlink/nablink';
@@ -60,7 +60,7 @@ class Dashboard extends Component{
         ];
         const pageToShow = navList.find((v)=>(v.path===pageLocation.pathname));
         //console.log(pageToShow);
-        return(
+        return pageToShow?(
             <div>
                 <NavBar className='fixed-header' mode='dark'>{navList.find(v=>v.path===this.props.location.pathname).title}</NavBar>
                 <div style={{marginTop:45}}>
@@ -70,7 +70,7 @@ class Dashboard extends Component{
                 </div>
                 <NavLinkBar data={navList}></NavLinkBar>
             </div>
-        )
+        ):<Redirect to='/msg'></Redirect>
     }
 }
 
