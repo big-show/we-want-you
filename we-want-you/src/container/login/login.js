@@ -38,7 +38,7 @@ class Login extends Component{
     {
         return(
             <div>
-                {this.props.redirecTo&&this.props.redirecTo!='/login'?<Redirect to={this.props.redirecTo}/>:null}
+                {this.props.redirecTo&&this.props.redirecTo!=='/login'?<Redirect to={this.props.redirecTo}/>:null}
                 <Logo></Logo>
                 {this.props.errMsg?<p className='err_msg'>{this.props.errMsg}</p>:null}
                 <WingBlank>

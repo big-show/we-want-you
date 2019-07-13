@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
 const userRouter = require('./user');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const path = require('path');
 const model = require('./model');
 const Chat = model.getModel('chat');
 //socket work with express
@@ -23,8 +24,16 @@ io.on('connection',function (socket) {
 });
 app.use(cookieParser());
 app.use(bodyParser.json());
-
 app.use('/user',userRouter);
+//设置静态资源地址,白名单
+app.use(function(req,res,next){
+    if(req.url.startsWith('/user/')||req.url.startsWith('/static/'))
+        return next();
+    else
+        return res.sendFile(path.resolve('build/index.html'));
+});
+app.use('/',express.static(path.resolve('build')));
+
 server.listen(8080,()=>{
    console.log('server started at 8080')
 });

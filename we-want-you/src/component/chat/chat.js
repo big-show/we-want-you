@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {List,InputItem,NavBar,Icon,Grid} from 'antd-mobile';
 import { connect } from 'react-redux'
+import QueueAnim from 'rc-queue-anim';
 import {getMsgList,sendMsg,recvMsg,upDateUnread} from '../../redux/chat.redux';
 import {getChatId} from '../../util';
 @connect(
@@ -23,6 +24,7 @@ class Chat extends Component{
             this.props.recvMsg();
             this.props.getMsgList();
         }
+        console.log("component Did Mount");
         this.fixCarousel();
 
     }
@@ -62,6 +64,7 @@ class Chat extends Component{
         const Item =List.Item;
         const chatId=getChatId(userid,this.props.user._id);
         const chatMsg = this.props.chat.chatmsg.filter((v)=>(v.chatid===chatId));
+        //let length =chatMsg.length;
         return (
             <div id='chat-page'>
                 <NavBar
@@ -74,18 +77,20 @@ class Chat extends Component{
                 >
                     {userName}
                 </NavBar>
+                <QueueAnim delay={100}>
                 {chatMsg.map((item)=> {
-                    //console.log(item.from)
+                    //length--;
                     const avatar=require(`../../img/${users[item.from].avatar}.png`);
-                    return item.from === userid ?
+                    return item.from === userid?
                         (<List key={item._id}>
                                 <Item thumb={avatar}>{item.content}</Item>
                             </List>
                         )
                         : (<List key={item._id}>
-                            <Item className='chat-me' extra={<img src={avatar}/>}>{item.content}</Item>
+                            <Item className='chat-me' extra={<img src={avatar} alt='头像'/>} >{item.content}</Item>
                         </List>)
                 })}
+                </QueueAnim>
             <div className='stick-footer'>
                 <List>
                 <InputItem

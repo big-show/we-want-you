@@ -1,7 +1,7 @@
 import React ,{Component} from 'react';
 import {connect} from 'react-redux';
 import {List,Badge} from 'antd-mobile';
-import Login from "../../container/login/login";
+//import Login from "../../container/login/login";
 @connect(
     state=>state,
 )
@@ -42,7 +42,7 @@ class Msg extends Component{
                     return(
                         <List key={msg._id}>
                             <Item key={v._id}
-                                thumb={<img src={require(`../../img/${avatar}.png`)}/>}
+                                thumb={<img src={require(`../../img/${avatar}.png`)} alt='头像'/>}
                                   extra={<Badge text={unreadNum}></Badge>}
                                   arrow='horizontal'
                                   onClick={()=>this.props.history.push(`/chat/${targetId}`)}
