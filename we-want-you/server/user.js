@@ -6,8 +6,10 @@ const User = model.getModel('user');
 const Chat = model.getModel('chat');
 const _filter={pwd:0,__v:0};
 Router.get('/list',(req,res)=>{
-   //User.remove({},(e,d)=>{});
-   const {type} = req.query;
+  // User.remove({},(e,d)=>{});
+    Chat.remove({},(e,d)=>{});
+
+    const {type} = req.query;
    User.find({type},(err,doc)=>{
       res.json({code:0,data:doc});
    })

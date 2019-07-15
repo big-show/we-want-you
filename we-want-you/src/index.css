@@ -33,11 +33,20 @@
 {
     font-size:20px;
 }
+.stick-footer
+{
+    position: static;
+}
 .stick-footer .am-grid-icon{
     display: none;
 }
 .stick-footer .am-grid-text{
     margin-top: 0!important;
+}
+.stick-footer .am-button{
+    float:right;
+    line-height: 20px;
+    /*cursor: pointer;*/
 }
 .stick-footer{
     position: absolute;

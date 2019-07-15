@@ -1,6 +1,12 @@
 import axios from 'axios';
 import io from 'socket.io-client';
-const socket = io('ws://localhost:8080');
+//const WS_HOST = 'https://job.lbsmallant.org.cn';
+//const socket = io(`${WS_HOST}`);
+//线上调试
+//const socket = io('ws://线上地址:8083');
+
+//本地调试
+const socket = io('ws://localhost:8083');
 
 //action
 //获取聊天列表
@@ -54,6 +60,7 @@ function getUnread(userid,from,readNum)
 }
 export function recvMsg()
 {
+    //console.log("接受数据");
     return (dispatch,getState)=> {
         socket.on('recvmsg', function (data) {
             const userid=getState().user._id;
@@ -80,6 +87,7 @@ export function sendMsg({from,to,msg}) {
     }
 }
 export function getMsgList() {
+    //console.log("更新数据列表");
     return (dispatch,getState)=>{
 
         axios.get('/user/getmsglist')

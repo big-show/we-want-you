@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/test');
+let env = process.env.NODE_ENV||'development';
+let dbUrl ='';
+//console.log("env",env);
+//部署到线上
+//let dbUrl='mongodb://smaXXant:111111111111$@127.0.0.1:27017/test';
+if(env === 'development')
+{
+    dbUrl='mongodb://localhost:27017/test';
+}
+console.log(dbUrl);
+//alert(dbUrl);
+mongoose.connect(dbUrl);
 
 const models = {
     user:{

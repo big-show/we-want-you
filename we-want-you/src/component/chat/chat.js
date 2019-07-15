@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {List,InputItem,NavBar,Icon,Grid} from 'antd-mobile';
+import {List,InputItem,NavBar,Icon,Grid,Button} from 'antd-mobile';
 import { connect } from 'react-redux'
 import QueueAnim from 'rc-queue-anim';
 import {getMsgList,sendMsg,recvMsg,upDateUnread} from '../../redux/chat.redux';
@@ -23,6 +23,7 @@ class Chat extends Component{
         if(!this.props.chat.chatmsg.length) {
             this.props.recvMsg();
             this.props.getMsgList();
+            //console.log('不存在数据，加载数据');
         }
         //console.log("component Did Mount");
         this.fixCarousel();
@@ -32,7 +33,7 @@ class Chat extends Component{
     {
        // console.log("Chat component : willunMount");
         const to =this.props.match.params._id;
-        console.log("From who:",to);
+        //console.log("From who:",to);
         this.props.upDateUnread(to);
     }
     fixCarousel()
@@ -41,13 +42,15 @@ class Chat extends Component{
            window.dispatchEvent(new Event('resize'))
         },0)
     }
-    handleClick()
+    handleButtonClick()
     {
+        //console.log('点击一次');
         const from=this.props.user._id;
         const to = this.props.match.params._id;
         const msg = this.state.text;
-        this.props.sendMsg({from,to,msg});
+        //alert(msg);
         this.setState({text:''});
+        this.props.sendMsg({from,to,msg});
     }
     render()
     {
@@ -60,11 +63,12 @@ class Chat extends Component{
         const users = this.props.chat.users;
         if(!users[userid])
             return null;
-        const userName = users[userid].name;
+
         const Item =List.Item;
         const chatId=getChatId(userid,this.props.user._id);
         const chatMsg = this.props.chat.chatmsg.filter((v)=>(v.chatid===chatId));
         //let length =chatMsg.length;
+        //console.log(chatMsg);
         return (
             <div id='chat-page'>
                 <NavBar
@@ -74,13 +78,12 @@ class Chat extends Component{
                         this.props.history.goBack();
                         //this.props.upDateUnread();
                         }}
-                >
-                    {userName}
+                >{users[userid].name}
                 </NavBar>
                 <QueueAnim delay={100}>
                 {chatMsg.map((item)=> {
-                    //length--;
                     const avatar=require(`../../img/${users[item.from].avatar}.png`);
+                    console.log(item);
                     return item.from === userid?
                         (<List key={item._id}>
                                 <Item thumb={avatar}>{item.content}</Item>
@@ -113,7 +116,8 @@ class Chat extends Component{
                                 😄
                             </span>
                             <span style={{color:'#108ee9'}}
-                                  onClick={()=>this.handleClick()}
+                                  //onTouchend={()=>{ alert('发现点击无效') ;return this.handleClick();}}
+                                    onClick={()=>this.handleButtonClick()}
                             >发送
                             </span>
                         </div>}
