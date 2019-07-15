@@ -25,7 +25,7 @@ class Chat extends Component{
             this.props.getMsgList();
             //console.log('不存在数据，加载数据');
         }
-        //console.log("component Did Mount");
+        console.log("component Did Mount");
         this.fixCarousel();
 
     }
@@ -65,10 +65,17 @@ class Chat extends Component{
             return null;
         const Item =List.Item;
         const chatId=getChatId(userid,this.props.user._id);
-        const chatMsg = this.props.chat.chatmsg.filter((v)=>(v.chatid===chatId));
+        //console.log("chatMsg all-------" ,this.props.chat.chatmsg);
+        //this.props.chat.chatmsg()
+        let chatMsg = this.props.chat.chatmsg.filter((v)=>(v.chatid===chatId));
+        console.log(" before remove duplicative chatMsg ------",chatMsg);
+        //const itemIdContainer =new Map();
+        const setChatMsg = new Set(chatMsg);
+        chatMsg = Array.from(setChatMsg);
+        console.log(" After remove duplicative chatMsg ------",chatMsg);
         //let length =chatMsg.length;
         //console.log(chatMsg.length);
-        console.log(chatMsg);
+        //console.log(chatMsg);
         return (
             <div id='chat-page'>
                 <NavBar
@@ -82,12 +89,12 @@ class Chat extends Component{
                 </NavBar>
                 <QueueAnim delay={100}>
                 {chatMsg.map((item)=> {
-                    console.log(users);
-                    console.log("item        ",item);
-                    console.log(item.from);
+                    //console.log(users);
+                    //console.log("item        ",item);
+                    //console.log(item.from);
                     const userAvatar=item.from?users[item.from].avatar:this.props.user.avatar;
                     const avatar=require(`../../img/${userAvatar}.png`);
-                    console.log(item);
+                    //console.log(item);
                     return item.from === userid?
                         (<List key={item._id}>
                                 <Item thumb={avatar}>{item.content}</Item>

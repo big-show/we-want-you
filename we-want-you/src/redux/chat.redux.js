@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 //const WS_HOST = 'https://job.lbsmallant.org.cn';
 //const socket = io(`${WS_HOST}`);
 //线上调试
+//const socket = io('ws://47.112.15.88:8083');
 
 //本地调试
 const socket = io('ws://localhost:8083');
@@ -28,7 +29,16 @@ export default function chat(state=defaultState,action) {
             return {...state,chatmsg:action.payload,unread:action.payload.filter(v=>!v.read&&action.userid===v.to).length,users:action.users};
         case MSG_RECV:
             //console.log(action.payload.to);
-            const n=action.userid===action.payload.to?1:0;
+            let n=0;
+            let isDup = state.chatmsg.every((v)=>(v._id!==action.payload._id));
+            if(isDup&&action.userid===action.payload.to)
+                 n = 1;
+            console.log("unread++++++",1);
+            const setChatMsg = new Set(state.chatmsg);
+            state.chatmsg = Array.from(setChatMsg);
+            console.log("chat message:-----------",state.chatmsg);
+            //if(state.chatmsg.find())
+
             //console.log(n);
             return {...state,chatmsg:[...state.chatmsg,action.payload],unread:state.unread+n};
         case UPDATE_UNREAD:
@@ -62,6 +72,7 @@ export function recvMsg()
     //console.log("接受数据");
     return (dispatch,getState)=> {
         socket.on('recvmsg', function (data) {
+            console.log("recvmsg返回的数据----",data);
             const userid=getState().user._id;
             dispatch(getRecvMsg(data,userid));
         })

@@ -14,13 +14,13 @@ import {getMsgList,recvMsg} from '../../redux/chat.redux';
     {getMsgList,recvMsg}
 )
 class Dashboard extends Component{
-    // componentDidMount()
-    // {
-    //     if(!this.props.chat.chatmsg.length) {
-    //         this.props.recvMsg();
-    //         this.props.getMsgList();
-    //     }
-    // }
+    componentDidMount()
+    {
+        if(!this.props.chat.chatmsg.length) {
+            this.props.recvMsg();
+            this.props.getMsgList();
+        }
+    }
     render()
     {
         const pageLocation = this.props.location;

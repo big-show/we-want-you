@@ -15,17 +15,22 @@ class Msg extends Component{
         const Item = List.Item;
         const Brief = Item.Brief;
         const chatGroup={};
+        //去除两次点击效果
+        const setChatMsg = new Set(this.props.chat.chatmsg);
+        this.props.chat.chatmsg = Array.from(setChatMsg);
         this.props.chat.chatmsg.forEach(v=>{
             chatGroup[v.chatid]=chatGroup[v.chatid]||[];
             chatGroup[v.chatid].push(v);
         });
-        const chatGroupValue = Object.values(chatGroup).sort((a,b)=>
+        let chatGroupValue = Object.values(chatGroup).sort((a,b)=>
         {
             const aLast = this.getListItem(a).create_time;
             const bLast = this.getListItem(b).create_time;
             return bLast-aLast;
         });
-        //console.log(chatGroupValue);
+        let setChatGroup = new Set(chatGroupValue);
+        chatGroupValue = Array.from(setChatGroup);
+        console.log("chatGroup------------",chatGroupValue);
         const userid=this.props.user._id;
         return (
             <div>
