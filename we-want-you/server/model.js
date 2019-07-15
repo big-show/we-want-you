@@ -3,7 +3,7 @@ let env = process.env.NODE_ENV||'development';
 let dbUrl ='';
 //console.log("env",env);
 //部署到线上
-//let dbUrl='mongodb://smaXXant:111111111111$@127.0.0.1:27017/test';
+dbUrl='mongodb://smallsdsdant:12211111$@127.0.0.1:27017/test';
 if(env === 'development')
 {
     dbUrl='mongodb://localhost:27017/test';

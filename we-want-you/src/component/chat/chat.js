@@ -63,12 +63,12 @@ class Chat extends Component{
         const users = this.props.chat.users;
         if(!users[userid])
             return null;
-
         const Item =List.Item;
         const chatId=getChatId(userid,this.props.user._id);
         const chatMsg = this.props.chat.chatmsg.filter((v)=>(v.chatid===chatId));
         //let length =chatMsg.length;
-        //console.log(chatMsg);
+        //console.log(chatMsg.length);
+        console.log(chatMsg);
         return (
             <div id='chat-page'>
                 <NavBar
@@ -82,7 +82,11 @@ class Chat extends Component{
                 </NavBar>
                 <QueueAnim delay={100}>
                 {chatMsg.map((item)=> {
-                    const avatar=require(`../../img/${users[item.from].avatar}.png`);
+                    console.log(users);
+                    console.log("item        ",item);
+                    console.log(item.from);
+                    const userAvatar=item.from?users[item.from].avatar:this.props.user.avatar;
+                    const avatar=require(`../../img/${userAvatar}.png`);
                     console.log(item);
                     return item.from === userid?
                         (<List key={item._id}>

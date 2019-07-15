@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 //const WS_HOST = 'https://job.lbsmallant.org.cn';
 //const socket = io(`${WS_HOST}`);
 //线上调试
-//const socket = io('ws://线上地址:8083');
 
 //本地调试
 const socket = io('ws://localhost:8083');
