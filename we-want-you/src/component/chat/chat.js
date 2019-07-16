@@ -67,6 +67,7 @@ class Chat extends Component{
         const chatId=getChatId(userid,this.props.user._id);
         //console.log("chatMsg all-------" ,this.props.chat.chatmsg);
         //this.props.chat.chatmsg()
+        console.log("chatID_______", chatId);
         let chatMsg = this.props.chat.chatmsg.filter((v)=>(v.chatid===chatId));
         console.log(" before remove duplicative chatMsg ------",chatMsg);
         //const itemIdContainer =new Map();

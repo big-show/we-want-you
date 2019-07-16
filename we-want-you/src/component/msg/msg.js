@@ -38,6 +38,7 @@ class Msg extends Component{
                     const unreadNum=v.filter(v=>!v.read&&v.to===userid).length;
                     const targetId=userid===v[0].to?v[0].from:v[0].to;
                     const userinfo=this.props.chat.users;
+                    console.log("targetIDIDIDIDIDID-----------",targetId);
                     if(!userinfo[targetId])
                         return null;
                     const name=userinfo[targetId].name;

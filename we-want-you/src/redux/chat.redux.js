@@ -38,7 +38,7 @@ export default function chat(state=defaultState,action) {
             state.chatmsg = Array.from(setChatMsg);
             console.log("chat message:-----------",state.chatmsg);
             //if(state.chatmsg.find())
-
+            console.log('unread+++++',state.unread+n);
             //console.log(n);
             return {...state,chatmsg:[...state.chatmsg,action.payload],unread:state.unread+n};
         case UPDATE_UNREAD:
