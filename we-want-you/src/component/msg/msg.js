@@ -1,11 +1,20 @@
 import React ,{Component} from 'react';
 import {connect} from 'react-redux';
 import {List,Badge} from 'antd-mobile';
+import {getMsgList} from "../../redux/chat.redux";
 //import Login from "../../container/login/login";
 @connect(
     state=>state,
+    {getMsgList}
 )
 class Msg extends Component{
+    componentDidMount()
+    {
+
+        console.log("Msg DidMount");
+        this.props.getMsgList();
+
+    }
     getListItem(arr)
     {
         return arr[arr.length-1];
@@ -57,7 +66,7 @@ class Msg extends Component{
                                   onClick={()=>this.props.history.push(`/chat/${targetId}`)}
                             >
                                 {msg.content}
-w                                <Brief>{name}</Brief>
+                                <Brief>{name}</Brief>
                             </Item>
                         </List>
                     )
