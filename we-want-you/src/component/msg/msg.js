@@ -32,12 +32,15 @@ class Msg extends Component{
         chatGroupValue = Array.from(setChatGroup);
         console.log("chatGroup------------",chatGroupValue);
         const userid=this.props.user._id;
+        console.log("当前用户userid",userid);
         return (
             <div>
                 {chatGroupValue.map(v=>{
                     const unreadNum=v.filter(v=>!v.read&&v.to===userid).length;
-                    const targetId=userid===v[0].to?v[0].from:v[0].to;
+                    //
+                    const targetId=(userid===v[0].to)?v[0].from:v[0].to;
                     const userinfo=this.props.chat.users;
+                    console.log("所有会话者:",userinfo);
                     console.log("targetIDIDIDIDIDID-----------",targetId);
                     if(!userinfo[targetId])
                         return null;

@@ -17,12 +17,16 @@ Router.get('/list',(req,res)=>{
 //初始化chat信息列表
 Router.get('/getmsglist',function(req,res){
     const user = req.cookies.userid ;
+    console.log(req.query);
+    console.log("cookies用户发起者id",user);
     //查询用户姓名和头像
     let users={};
     User.find({},function (e,userdoc) {
+       console.log("数据库中的user",userdoc)
        userdoc.forEach((v)=>{
            users[v.id]={name:v.user,avatar:v.avatar}
        })
+       console.log("所有用户",users);
     });
     Chat.find({"$or":[{from:user},{to:user}]},function (err,doc) {
         if(err)
@@ -67,8 +71,9 @@ Router.post('/register',function (req,res) {
       const userModel = new User({user,pwd:md5Pwd(pwd),type});
       userModel.save(function(e,d){
          const {user,type,_id} =d;
+         console.log("新用户的信息",d);
          res.cookie('userid',_id);
-         return res.json({code:0,data:{user,type,_id}});
+         return res.json({code:0,data:d});
       });
   })
 

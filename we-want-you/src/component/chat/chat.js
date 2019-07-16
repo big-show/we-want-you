@@ -22,11 +22,12 @@ class Chat extends Component{
     {
         if(!this.props.chat.chatmsg.length) {
             this.props.recvMsg();
-            this.props.getMsgList();
             //console.log('不存在数据，加载数据');
         }
+        this.props.getMsgList();
         console.log("component Did Mount");
         this.fixCarousel();
+        //this.pageReload();
 
     }
     componentWillUnmount()
@@ -35,6 +36,12 @@ class Chat extends Component{
         const to =this.props.match.params._id;
         //console.log("From who:",to);
         this.props.upDateUnread(to);
+    }
+    pageReload()
+    {
+        setTimeout(function(){
+            window.location.reload();
+        },0)
     }
     fixCarousel()
     {
@@ -64,12 +71,17 @@ class Chat extends Component{
         if(!users[userid])
             return null;
         const Item =List.Item;
+        console.log("当前用户信息:",this.props.user._id);
         const chatId=getChatId(userid,this.props.user._id);
+        console.log("toID-------",userid);
+        console.log("fromID------",this.props.user._id);
         //console.log("chatMsg all-------" ,this.props.chat.chatmsg);
         //this.props.chat.chatmsg()
-        console.log("chatID_______", chatId);
+       // if(chatId.length<30)
+            //this.pageReload();
+        //console.log("chatID_______", chatId);
         let chatMsg = this.props.chat.chatmsg.filter((v)=>(v.chatid===chatId));
-        console.log(" before remove duplicative chatMsg ------",chatMsg);
+        //console.log(" before remove duplicative chatMsg ------",chatMsg);
         //const itemIdContainer =new Map();
         const setChatMsg = new Set(chatMsg);
         chatMsg = Array.from(setChatMsg);

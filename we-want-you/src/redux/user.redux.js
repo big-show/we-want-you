@@ -12,7 +12,8 @@ const defaultState={
   user:'',
   pwd:'',
   type:'',
-  errMsg:''
+  errMsg:'',
+    _id:''
 };
 export default function userReducer(state=defaultState , action)
 {
@@ -60,7 +61,10 @@ export function update(data) {
         axios.post('/user/update',data)
             .then(res=>{
                 if(res.status===200&&res.data.code===0)
-                    dispatch(authSuccess(res.data.data));
+                {
+                       console.log("注册完返回的用户数据",res.data.data);
+                       dispatch(authSuccess(res.data.data));
+                   }
                 else
                     dispatch(errMsg(res.data.msg));
             })
@@ -96,7 +100,7 @@ export function register({user,pwd,repeatPwd,type}){
         axios.post('/user/register',{user,pwd,type})
             .then((res)=>{
                 if(res.status===200&&res.data.code===0) {
-                    dispatch(authSuccess({user, pwd, type}));
+                    dispatch(authSuccess(res.data.data));
                 }
                 else
                     dispatch(errMsg(res.data.msg));

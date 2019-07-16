@@ -103,8 +103,9 @@ export function getMsgList() {
         axios.get('/user/getmsglist')
             .then(res => {
                 //console.log(getState());
+                console.log("state",getState());
                 const userid=getState().user._id;
-                //console.log(userid);
+                console.log("用户发起者",userid);
                 if (res.status === 200 && res.data.code === 0)
                     dispatch(msgList(res.data.msgs,res.data.users,userid))
             })

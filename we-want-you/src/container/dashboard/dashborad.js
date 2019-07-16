@@ -18,8 +18,15 @@ class Dashboard extends Component{
     {
         if(!this.props.chat.chatmsg.length) {
             this.props.recvMsg();
-            this.props.getMsgList();
         }
+        this.props.getMsgList();
+        //this.pageReload();
+    }
+    pageReload()
+    {
+        setTimeout(function(){
+            window.location.reload();
+        },0)
     }
     render()
     {
