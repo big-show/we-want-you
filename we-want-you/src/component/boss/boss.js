@@ -12,7 +12,7 @@ class Boss extends Component{
     {
         this.props.getInitUserList('genius');
         this.props.getMsgList();
-        console.log("Genius DidMount");
+        //console.log("Genius DidMount");
     }
     render()
     {
